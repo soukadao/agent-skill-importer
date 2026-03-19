@@ -16,7 +16,7 @@ export interface Skill {
   scope: string;
 }
 
-export type SkillCatalogEntry = Pick<Skill, "name" | "description">;
+export type SkillCatalogEntry = Pick<Skill, "name" | "description" | "location">;
 
 export type CatalogFormat = "json" | "xml";
 

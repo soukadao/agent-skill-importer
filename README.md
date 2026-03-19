@@ -37,7 +37,7 @@ for (const c of collisions) {
 
 ### Catalog
 
-読み込んだスキルの `name` と `description` のみを返します。`format` 引数で出力形式を切り替えられます（デフォルト: `"json"`）。
+読み込んだスキルの `name`、`description`、`location` を返します。`format` 引数で出力形式を切り替えられます（デフォルト: `"json"`）。
 
 ```typescript
 import { loadSkills, catalog } from "@soukadao/agent-skill-importer";
@@ -48,7 +48,7 @@ const { skills } = await loadSkills([
 
 // JSON (default)
 const entries = catalog(skills);
-// [{ name: "pdf-processing", description: "Extract PDF text..." }, ...]
+// [{ name: "pdf-processing", description: "Extract PDF text...", location: "/path/to/project/skills/pdf-processing/SKILL.md" }, ...]
 
 // XML
 const xml = catalog(skills, "xml");
@@ -56,6 +56,7 @@ const xml = catalog(skills, "xml");
 //   <skill>
 //     <name>pdf-processing</name>
 //     <description>Extract PDF text...</description>
+//     <location>/path/to/project/skills/pdf-processing/SKILL.md</location>
 //   </skill>
 // </available_skills>
 ```
@@ -107,7 +108,7 @@ interface Skill {
   scope: string;
 }
 
-type SkillCatalogEntry = Pick<Skill, "name" | "description">;
+type SkillCatalogEntry = Pick<Skill, "name" | "description" | "location">;
 
 type SkillDetail = Omit<Skill, "location" | "baseDir"> & {
   resources: string[];

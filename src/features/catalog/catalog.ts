@@ -14,6 +14,7 @@ export function catalog(
   const entries = skills.map((s) => ({
     name: s.name,
     description: s.description,
+    location: s.location,
   }));
 
   if (format === "xml") {
@@ -34,7 +35,7 @@ function escapeXml(s: string): string {
 function toXml(entries: SkillCatalogEntry[]): string {
   const lines = entries.map(
     (e) =>
-      `  <skill>\n    <name>${escapeXml(e.name)}</name>\n    <description>${escapeXml(e.description)}</description>\n  </skill>`,
+      `  <skill>\n    <name>${escapeXml(e.name)}</name>\n    <description>${escapeXml(e.description)}</description>\n    <location>${escapeXml(e.location)}</location>\n  </skill>`,
   );
   return `<available_skills>\n${lines.join("\n")}\n</available_skills>`;
 }

@@ -26,8 +26,8 @@ describe("catalog", () => {
       ];
       const result = catalog(skills);
       expect(result).toEqual([
-        { name: "skill-a", description: "Does A." },
-        { name: "skill-b", description: "Does B." },
+        { name: "skill-a", description: "Does A.", location: "/skills/skill-a/SKILL.md" },
+        { name: "skill-b", description: "Does B.", location: "/skills/skill-b/SKILL.md" },
       ]);
     });
 
@@ -42,6 +42,7 @@ describe("catalog", () => {
       expect(result[0]).toEqual({
         name: "only",
         description: "The only skill.",
+        location: "/skills/only/SKILL.md",
       });
     });
 
@@ -50,13 +51,13 @@ describe("catalog", () => {
       skill.license = "MIT";
       skill.metadata = { author: "me" };
       const result = catalog([skill]);
-      expect(Object.keys(result[0]!)).toEqual(["name", "description"]);
+      expect(Object.keys(result[0]!)).toEqual(["name", "description", "location"]);
     });
 
     it("should return json when format is explicitly json", () => {
       const skills = [makeSkill("a", "A.")];
       const result = catalog(skills, "json");
-      expect(result).toEqual([{ name: "a", description: "A." }]);
+      expect(result).toEqual([{ name: "a", description: "A.", location: "/skills/a/SKILL.md" }]);
     });
   });
 
@@ -71,6 +72,7 @@ describe("catalog", () => {
           "  <skill>",
           "    <name>pdf</name>",
           "    <description>Process PDFs.</description>",
+          "    <location>/skills/pdf/SKILL.md</location>",
           "  </skill>",
           "</available_skills>",
         ].join("\n"),
